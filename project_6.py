@@ -50,8 +50,7 @@ def input_slow(str): # Credit: https://www.101computing.net/python-typing-text-e
   value = input()  
   return value  
 def battle(randWokemon):# take 
-    rwok = randWokemon[0] # extract just the name 
-    rwokhealth = randWokemon[1] #extract the health 
+    rwok = (randWokemon[0],randWokemon[1]) # extract name and healktgh
     while True:
         wok = input_slow("\nChoose your Wokemon:\n"+str(wokeDex)+"\n")
         if wok in wokeDex:
@@ -59,9 +58,9 @@ def battle(randWokemon):# take
             global pwokhealth
             pwokhealth = int(wokeDex[wok])
             print_slow("\nYour HP: " + str(pwokhealth) + "\n") #print player helath 
-            cwokhealth = int(rwokhealth)
+            cwokhealth = int(rwok[1])
             print_slow("Oponent HP: " + str(cwokhealth) + "\n")# print oponent helath 
-            print_slow("\nLooks like its " + wok + " vs " + rwok + "\n")
+            print_slow("\nLooks like its " + wok + " vs " + rwok[0] + "\n")
             time.sleep(1)
             def attack():
                 global cwokhealth
@@ -71,7 +70,7 @@ def battle(randWokemon):# take
                 print_slow(wok + " Strikes!\nIt does " + str(phit1) + " dammage!\n\n")
                 chit1 = random.randrange(0,5,1)#randomly genereated compouter dammage to play
                 pwokhealth -= chit1#subtract hit points form health 
-                print_slow(rwok + " Strikes!\nIt does " + str(chit1) + " dammage!\n\n")
+                print_slow(rwok[0] + " Strikes!\nIt does " + str(chit1) + " dammage!\n\n")
                 print_slow("Oponent HP: " + str(cwokhealth) + "\n")
                 print_slow("Your HP: " + str(pwokhealth) + "\n\n")
             attack()
@@ -87,8 +86,8 @@ def battle(randWokemon):# take
         elif cwokhealth <= 0 and pwokhealth >= cwokhealth: # if player wins
             global currentLevel
             currentLevel += 1
-            print_slow("You won!!\nYou now have " + rwok + " added to your wokedex!!\nYou will now move on to "+ str(currentLevel)+"!\n\n")
-            wokeDex[rwok] = rwokhealth
+            print_slow("You won!!\nYou now have " + rwok[0] + " added to your wokedex!!\nYou will now move on to "+ str(currentLevel)+"!\n\n")
+            wokeDex[rwok[0]] = rwok[1]
             savel()
             loby()
         

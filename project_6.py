@@ -33,7 +33,9 @@ with open("accounts.txt","r+") as users:
     savedGames = games.split("\n")
 print(savedGames)
             
-wokemon = {"wikachu":10,"worzard":5,"wonix":10,"wortle":5,"Wewtwo":20,"wurtterfree":3,"wattata":4}# dictionary of pokemon with health points 
+wokemon = {"Wikachu":10,"Worzard":5,"Wonix":10,"Wortle":5,"Wewtwo":20,"Wurtterfree":3,"Wattata":4}# dictionary of pokemon with health points 
+waterWokemon = {"Wyaradose":21, "Wlastoise":8, "Wampert": 10, "Wagicarp":4}
+fireWokemon = {}
 def print_slow(str):# Credit : Sebastian - Stack overflow https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing
     for letter in str:
         sys.stdout.write(letter)
@@ -46,7 +48,43 @@ def input_slow(str): # Credit: https://www.101computing.net/python-typing-text-e
     time.sleep(0.0005)
   value = input()  
   return value  
-
+def battle(randWokemon):# take 
+    rwok = randWokemon[0] # extract just the name 
+    rwokhealth = randWokemon[1] #extract the health 
+    wok = input_slow("\nChoose your Wokemon:\n"+str(wokeDex)+"\n")
+    if wok in wokeDex:
+        global cwokhealth
+        global pwokhealth
+        pwokhealth = int(wokeDex[wok])
+        print_slow("\nYour HP: " + str(pwokhealth) + "\n") #print player helath 
+        cwokhealth = int(rwokhealth)
+        print_slow("Oponent HP: " + str(cwokhealth) + "\n")# print oponent helath 
+        print_slow("\nLooks like its " + wok + " vs " + rwok + "\n")
+        def attack():
+            global cwokhealth
+            global pwokhealth
+            phit1 = random.randrange(0,5,1)#randomly genreated player dammage to compouter 
+            cwokhealth -= phit1 #subtract hit points form health 
+            print_slow(wok + " Strikes!\nIt does " + str(phit1) + " dammage!\n\n")
+            chit1 = random.randrange(0,5,1)#randomly genereated compouter dammage to play
+            pwokhealth -= chit1#subtract hit points form health 
+            print_slow(rwok + " Strikes!\nIt does " + str(chit1) + " dammage!\n\n")
+            print_slow("Oponent HP: " + str(cwokhealth) + "\n")
+            print_slow("Your HP: " + str(pwokhealth) + "\n")
+        attack()
+        while pwokhealth > 0 and cwokhealth > 0:
+            attack()
+        if pwokhealth <= 0 and cwokhealth >= 0: #if comoputer wins
+            print_slow("Dang..., Thats tough boss. \nLooks like you lost this one.\nTime to head home and heal your wokemon\n ")
+            loby()
+        elif pwokhealth >= 0 and cwokhealth <= 0: # if player wins
+            print_slow("You won!!\n you now have " + rwok + " added to your wokedex!!\nYou will now move on to level 2!\n\n")
+            wokeDex[rwok] = rwokhealth
+            global currentLevel
+            currentLevel = "l2"
+            savel()
+            loby()
+        
 def l1():
     sav = open("saveG.txt", "r+") # open save file
     wd = open("wokedex.txt", "r+") # create save file
@@ -102,18 +140,36 @@ def l1():
                         currentLevel = "l2"
                         savel()
                         loby()
-                        
                     break
                 else: 
                     print_slow('Choose an availble Wokemon')
                     continue
                     
         elif path1 == "spoon":
-            pass
-        else: 
-            print("Please choose 'Elk', or 'Spoon'\n")
-            break
-        
+            print_slow("\nYour walking down the Spoon Path and you come to a fork in the path\n The left looks like it leads to a river, and the right looks to be more forrest.\n ")
+            lefRig = input_slow("Do you Turn left or right\n").lower()
+            if lefRig == "left":
+                print_slow("\nWhile Crossing the shallow end of the river, you see some splashing...")
+                time.sleep(.75)
+                print_slow(".")
+                time.sleep(.75)
+                print_slow(".")
+                randWokemon = random.choice(list(waterWokemon.items())) #chose random Wokemon from dict of wokemon
+                rwok = randWokemon[0] # extract just the name 
+                fight2 = input_slow("\n\nA wild " + rwok + " appears!!\n Do you battle? or Run away?\n Enter 'Battle', or n'Run\n").lower()
+                if fight2 == "battle":
+                    battle(randWokemon)
+                elif fight2 == "run":
+                    print_slow("You got away just in time")
+                else:
+                    print_slow("Choose battle, or Run.")
+            elif lefRig == "right":
+                continue
+            else:
+                print_slow("Please choose left or right")
+                continue
+                
+
 def l2():
     print("Welcome to Level 2!")
     pass

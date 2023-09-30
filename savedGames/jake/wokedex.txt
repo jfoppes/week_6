@@ -1,2 +1,3 @@
-wikachu 10
-wurtterfree 3
+Wikachu 11
+Wattata 4
+Wapidash 8

@@ -31,12 +31,36 @@ currentLevel = 0
 with open("accounts.txt","r+") as users:
     games = users.read()
     savedGames = games.split("\n")
-print(savedGames)
-            
-wokemon = {"Wikachu":10,"Wetapod":5,"Wonix":10,"Wortle":5,"Wewtwo":20,"Wurtterfree":3,"Wattata":4}# dictionary of pokemon with health points 
-waterWokemon = {"Wyaradose":21, "Wlastoise":8, "Wampert": 10, "Wagicarp":4}
-fireWokemon = {"Warmander":6,"Wapidash": 8,"Wagmar": 7, "Wimchar": 4, "Winetails":12}
-earthWokemon = {"Whydor":3, "Wolem":5,"Wonix": 18,"Weodude":8, "Womastart": 3}
+
+
+wokemon = []# list of wokemon-----each poekemon is a list of the pokemon features 
+basicWokemon = []
+electricWokemon = []
+waterWokemon = []
+fireWokemon = []
+earthWokemon = []
+with open("wokemon.txt","r") as allWok:
+    for line in allWok:
+        
+
+class Wokemon:
+    def __init__(self,name,type,hp,strenght,weakness,attack1,attack2):
+        self.name = name
+        self.type = type
+        self.hp = hp
+        self.strenght = strenght
+        self.weakness = weakness
+        self.attack1 = attack1
+        self.attack2 = attack2
+        
+    def getHP(self,hp): # this fucntion will Determin  a random hp number for wild wokemon witin 5 points of the default HP 
+        pass
+    
+        
+        
+        
+
+
 def print_slow(str):# Credit : Sebastian - Stack overflow https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing
     for letter in str:
         sys.stdout.write(letter)
@@ -49,7 +73,7 @@ def input_slow(str): # Credit: https://www.101computing.net/python-typing-text-e
     time.sleep(0.05)
   value = input()  
   return value  
-def battle(randWokemon):# take 
+def battle(randWokemon):# take the pokemon generated orivouse and perfom a battle 
     rwok = (randWokemon[0],randWokemon[1]) # extract name and healktgh
     while True:
         wok = input_slow("\nChoose your Wokemon:\n"+str(wokeDex)+"\n")
